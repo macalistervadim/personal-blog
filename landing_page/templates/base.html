@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock title %}</title>
+</head>
+<body>
+    {% block header %}
+    <a href="{% url 'landing_page:landing' %}">Главная</a>
+    <a href="{% url 'admin:index' %}">Панель администратора</a>
+    {% endblock header %}
+    {% block content %}
+    {% endblock content %}
+</body>
+</html>

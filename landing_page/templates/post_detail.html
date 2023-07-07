@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Запись от {{ post_detail.date_created|date:"d.m.Y" }}
+{% endblock title %}
+
+{% block content %}
+    <h2>{{ post_detail.title }}</h2>
+    <p>{{ post_detail.description }}</p>
+    <h5>Написана: {{ post_detail.date_created|date:"d.m.Y" }}</h5>
+{% endblock content %}
