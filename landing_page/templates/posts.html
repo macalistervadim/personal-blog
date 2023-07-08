@@ -8,7 +8,7 @@
     {% for post in posts %}
         <h4><a href="{{ post.id }}">{{ post.title }}</a></h4>
         {% if post.description|length > 50 %}
-            <p>{{ post.description|truncatechars:50 }} ...</p>
+            <p>{{ post.description|truncatechars:50 }}</p>
         {% endif %}
         <p>{{ post.date_created|date:"d.m.Y"  }}</p>
     {% endfor %}

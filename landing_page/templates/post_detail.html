@@ -1,11 +1,31 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Запись от {{ post_detail.date_created|date:"d.m.Y" }}
+    Запись от {{ post.date_created|date:"d.m.Y" }}
 {% endblock title %}
 
 {% block content %}
-    <h2>{{ post_detail.title }}</h2>
-    <p>{{ post_detail.description }}</p>
-    <h5>Написана: {{ post_detail.date_created|date:"d.m.Y" }}</h5>
+    <h2>{{ post.title }}</h2>
+    <p>{{ post.description }}</p>
+    <h5>Написана: {{ post.date_created|date:"d.m.Y" }}</h5>
+    <br>
+    <div>
+    <h4>Комментарии</h4>
+    <form action="{% url 'landing_page:add_comment' post.id %}" method="post">
+        {% csrf_token %}
+        <p><label>Ваше имя</label></p>
+        <input type="text" name="name">
+         <p><label>Ваш E-Mail</label></p>
+        <input type="email" name="email">
+         <p><label>Комментарий</label></p>
+        <textarea name="text"></textarea>
+        <p><input type="submit"></p>
+    </form>
+    </div>
+    <div>
+    {% for comment in comments %}
+        <h4>{{ comment.name }}</h4>
+        <p>{{ comment.text }}</p>
+    {% endfor %}
+    </div>
 {% endblock content %}
