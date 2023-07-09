@@ -11,3 +11,5 @@ class AddPost(forms.ModelForm):
     class Meta:
         model = AddNewPost
         fields = ('title', 'description')
+        labels = {'title': 'Название записи', 'description': 'Описание'}
+        help_texts = {'title': 'Укажите краткое название'}
