@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.urls import reverse
@@ -14,7 +15,10 @@ class PostView(View):
     """Вывод записей на страницу"""
     def get(self, request):
         posts = AddNewPost.objects.all().order_by('-date_created')
-        return render(request, 'posts.html', {'posts': posts})
+        paginator = Paginator(posts, 10)  # Пагинация по 10 записей на странице
+        page_number = request.GET.get('page')  # Получение номера текущей страницы
+        page = paginator.get_page(page_number)  # Получение объекта страницы
+        return render(request, 'posts.html', {'page': page})
 
 class PostDetail(View):
     """Страница определенной записи по id"""
@@ -46,3 +50,18 @@ class AddPosts(View):
             form.save()
             return redirect('landing_page:post_list')
         return render(request, 'add_post.html')
+
+class EditPost(View):
+    """Редактирование текущей записи"""
+    def get(self, request, pk):
+        post = AddNewPost.objects.get(id=pk)
+        form = AddPost(instance=post)
+        return render(request, 'edit_post.html', {'form': form, 'post': post})
+
+    def post(self, request, pk):
+        post = AddNewPost.objects.get(id=pk)
+        form = AddPost(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            return redirect('landing_page:post_detail', pk=pk)
+        return render(request, 'edit_post.html', {'form': form, 'post': post})

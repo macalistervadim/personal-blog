@@ -1,15 +1,30 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Главная страница
+    Записи
 {% endblock title%}
 
 {% block content %}
-    {% for post in posts %}
+    {% for post in page %}
         <h4><a href="{{ post.id }}">{{ post.title }}</a></h4>
         {% if post.description|length > 50 %}
             <p>{{ post.description|truncatechars:50 }}</p>
         {% endif %}
         <p>{{ post.date_created|date:"d.m.Y"  }}</p>
     {% endfor %}
+
+    <!-- Добавление пагинатора -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page.has_previous %}
+                <a href="?page={{ page.previous_page_number }}">Назад</a>
+            {% endif %}
+
+            <span class="current-page">{{ page.number }}</span>
+
+            {% if page.has_next %}
+                <a href="?page={{ page.next_page_number }}">Далее</a>
+            {% endif %}
+        </span>
+    </div>
 {% endblock content %}

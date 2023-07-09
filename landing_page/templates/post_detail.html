@@ -28,4 +28,6 @@
         <p>{{ comment.text }}</p>
     {% endfor %}
     </div>
+    <!-- Кнопка "Редактировать" -->
+    <a href="{% url 'landing_page:edit_post' post.id %}">Редактировать</a>
 {% endblock content %}

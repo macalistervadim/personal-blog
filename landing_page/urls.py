@@ -16,4 +16,6 @@ urlpatterns = [
     path('topics/<int:pk>/add_comment/', views.AddNewComment.as_view(), name='add_comment'),
     # Добавление новой записи
     path('topics/add_topic/', views.AddPosts.as_view(), name='add_post'),
+    # Редактирование текущей записи
+    path('topics/<int:pk>/edit/', views.EditPost.as_view(), name='edit_post'),
 ]
