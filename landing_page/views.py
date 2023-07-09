@@ -3,7 +3,7 @@ from django.views.generic.base import View
 from django.urls import reverse
 
 from .models import AddNewPost, AddComment
-from .forms import CommentForm
+from .forms import CommentForm, AddPost
 
 class HomePage(View):
     """Домашняя страница"""
@@ -32,3 +32,17 @@ class AddNewComment(View):
             form.post_id = pk
             form.save()
         return redirect(reverse('landing_page:post_detail', args=[pk]))
+
+
+class AddPosts(View):
+    """Добавление новой записи на страницу"""
+
+    def get(self, request):
+        return render(request, 'add_post.html')
+
+    def post(self, request):
+        form = AddPost(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('landing_page:post_list')
+        return render(request, 'add_post.html')

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Добавление записи
+{% endblock title %}
+
+{% block content %}
+    <h2>Добавление новой записи</h2>
+    <form action="{% url 'landing_page:add_post' %}" method="post">
+        {% csrf_token %}
+        <p><label>Название записи</label></p>
+        <input type="text" name="title">
+         <p><label>Описание</label></p>
+        <textarea name="description"></textarea>
+        <p><input type="submit"></p>
+    </form>
+{% endblock content %}

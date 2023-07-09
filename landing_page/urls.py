@@ -14,4 +14,6 @@ urlpatterns = [
     path('topics/<int:pk>/', views.PostDetail.as_view(), name='post_detail'),
     # Добавление нового комментария
     path('topics/<int:pk>/add_comment/', views.AddNewComment.as_view(), name='add_comment'),
+    # Добавление новой записи
+    path('topics/add_topic/', views.AddPosts.as_view(), name='add_post'),
 ]
