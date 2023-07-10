@@ -6,6 +6,9 @@
 
 {% block content %}
     <h2>{{ post.title }}</h2>
+    {% if post.image %}
+        <img src="{{ post.image.url }}" alt="error load photo" width="20%"/>
+    {% endif %}
     <p>{{ post.description }}</p>
     <h5>Написана: {{ post.date_created|date:"d.m.Y" }}</h5>
     <br>
@@ -30,4 +33,6 @@
     </div>
     <!-- Кнопка "Редактировать" -->
     <a href="{% url 'landing_page:edit_post' post.id %}">Редактировать</a>
+    <!--Кнопка удалить -->
+    <a href="{% url 'landing_page:delete_post' post.id %}">Удалить</a>
 {% endblock content %}

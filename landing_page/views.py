@@ -42,14 +42,15 @@ class AddPosts(View):
     """Добавление новой записи на страницу"""
 
     def get(self, request):
-        return render(request, 'add_post.html')
+        form = AddPost(request.POST, request.FILES)  # Создание экземпляра формы
+        return render(request, 'add_post.html', {'form': form})  # Передача формы в контекст шаблона
 
     def post(self, request):
-        form = AddPost(request.POST)
+        form = AddPost(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('landing_page:post_list')
-        return render(request, 'add_post.html')
+        return render(request, 'add_post.html', {'form': form})
 
 class EditPost(View):
     """Редактирование текущей записи"""
@@ -65,3 +66,17 @@ class EditPost(View):
             form.save()
             return redirect('landing_page:post_detail', pk=pk)
         return render(request, 'edit_post.html', {'form': form, 'post': post})
+
+class DeletePost(View):
+    """Удаление записи"""
+    def get(self, request, pk):
+        post = AddNewPost.objects.get(id=pk)
+        return render(request, 'delete_post.html', {'post': post})
+
+class DeletePostConfirm(View):
+    """Подтверждение удаления записи"""
+    def post(self, request, pk):
+        post = AddNewPost.objects.get(id=pk)
+        post.delete()
+        return redirect('landing_page:post_list')
+

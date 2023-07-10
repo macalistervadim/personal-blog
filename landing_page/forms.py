@@ -10,6 +10,5 @@ class CommentForm(forms.ModelForm):
 class AddPost(forms.ModelForm):
     class Meta:
         model = AddNewPost
-        fields = ('title', 'description')
-        labels = {'title': 'Название записи', 'description': 'Описание'}
-        help_texts = {'title': 'Укажите краткое название'}
+        fields = ('title', 'description', 'image')
+        labels = {'title': 'Название записи', 'description': 'Описание', 'image': 'Изображение'}
