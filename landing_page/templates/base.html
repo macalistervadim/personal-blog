@@ -10,6 +10,12 @@
     <a href="{% url 'admin:index' %}">Панель администратора</a>
     <a href="{% url 'landing_page:post_list' %}">Все записи</a>
     <a href="{% url 'landing_page:add_post' %}">Добавление записи</a>
+    {% if user.is_authenticated %}
+    <form action="{% url 'profiles:logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Выйти">
+    </form>
+    {% endif %}
     {% endblock header %}
     {% block content %}
     {% endblock content %}

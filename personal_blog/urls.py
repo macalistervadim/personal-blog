@@ -19,11 +19,14 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 
+
 urlpatterns = [
     # Панель администратора
     path('admin/', admin.site.urls),
     # Маршруты к приложению landing_page
     path('', include('landing_page.urls')),
+    # Маршруты к приложению profiles
+    path('profiles/', include('profiles.urls')),
 ]
 
 if settings.DEBUG:
