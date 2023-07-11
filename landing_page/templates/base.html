@@ -15,6 +15,9 @@
         {% csrf_token %}
         <input type="submit" value="Выйти">
     </form>
+    <a href="{% url 'profiles:change_password' %}">Сменить пароль</a>
+    {% else %}
+        <a href="{% url 'profiles:login' %}">Войти</a>
     {% endif %}
     {% endblock header %}
     {% block content %}

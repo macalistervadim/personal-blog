@@ -1,7 +1,10 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.urls import reverse
+
 
 from .models import AddNewPost, AddComment
 from .forms import CommentForm, AddPost
@@ -13,6 +16,7 @@ class HomePage(View):
 
 class PostView(View):
     """Вывод записей на страницу"""
+    @method_decorator(login_required)
     def get(self, request):
         posts = AddNewPost.objects.all().order_by('-date_created')
         paginator = Paginator(posts, 10)  # Пагинация по 10 записей на странице
@@ -22,6 +26,7 @@ class PostView(View):
 
 class PostDetail(View):
     """Страница определенной записи по id"""
+    @method_decorator(login_required)
     def get(self, request, pk):
         post = AddNewPost.objects.get(id=pk)
         comments = AddComment.objects.filter(post=post)
@@ -29,6 +34,7 @@ class PostDetail(View):
 
 class AddNewComment(View):
     """Добавление нового комментария к записи"""
+    @method_decorator(login_required)
     def post(self, request, pk):
         form = CommentForm(request.POST)
         if form.is_valid():
