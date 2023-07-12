@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
@@ -46,11 +46,14 @@ class AddNewComment(View):
 
 class AddPosts(View):
     """Добавление новой записи на страницу"""
-
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def get(self, request):
         form = AddPost(request.POST, request.FILES)  # Создание экземпляра формы
         return render(request, 'add_post.html', {'form': form})  # Передача формы в контекст шаблона
 
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def post(self, request):
         form = AddPost(request.POST, request.FILES)
         if form.is_valid():
@@ -60,11 +63,15 @@ class AddPosts(View):
 
 class EditPost(View):
     """Редактирование текущей записи"""
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def get(self, request, pk):
         post = AddNewPost.objects.get(id=pk)
         form = AddPost(instance=post)
         return render(request, 'edit_post.html', {'form': form, 'post': post})
 
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def post(self, request, pk):
         post = AddNewPost.objects.get(id=pk)
         form = AddPost(request.POST, instance=post)
@@ -75,12 +82,16 @@ class EditPost(View):
 
 class DeletePost(View):
     """Удаление записи"""
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def get(self, request, pk):
         post = AddNewPost.objects.get(id=pk)
         return render(request, 'delete_post.html', {'post': post})
 
 class DeletePostConfirm(View):
     """Подтверждение удаления записи"""
+    @method_decorator(login_required)
+    @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def post(self, request, pk):
         post = AddNewPost.objects.get(id=pk)
         post.delete()

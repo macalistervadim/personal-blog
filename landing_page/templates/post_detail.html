@@ -31,8 +31,10 @@
         <p>{{ comment.text }}</p>
     {% endfor %}
     </div>
+    {% if user.is_superuser %}
     <!-- Кнопка "Редактировать" -->
     <a href="{% url 'landing_page:edit_post' post.id %}">Редактировать</a>
     <!--Кнопка удалить -->
     <a href="{% url 'landing_page:delete_post' post.id %}">Удалить</a>
+    {% endif %}
 {% endblock content %}

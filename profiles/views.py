@@ -1,5 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.models import User
+from django.contrib.auth import login
+from django.views.generic.base import View
+
+from .forms import SignUpForm
 
 class CustomLoginView(LoginView):
     """Шаблон представления формы входа на сайт"""
@@ -18,4 +23,18 @@ class ChangePassView(PasswordChangeView):
 class ChangePassDone(PasswordChangeDoneView):
     """Шаблон представления уведомления об успешной смене пароля"""
     pass
+
+class SignUpView(View):
+    """Шаблон представления регистрации на сайте"""
+    def get(self, request):
+        form = SignUpForm()
+        return render(request, 'registration/signup.html', {'form': form})
+
+    def post(self, request):
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('landing_page:landing')
+        return render(request, 'registration/signup.html', {'form': form})
 

@@ -15,4 +15,6 @@ urlpatterns = [
     # Страница с успешной сменой пароля
     path('change_password/done/', views.PasswordChangeDoneView.as_view(),
                                                         name='change_pass_done'),
+    # Страница регистрации
+    path('signup/', views.SignUpView.as_view(), name='signup'),
 ]
