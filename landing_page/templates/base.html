@@ -18,6 +18,7 @@
             <input type="submit" value="Выйти">
         </form>
         <a href="{% url 'profiles:change_password' %}">Сменить пароль</a>
+        Добро пожаловать, {{ user.username }}
     {% else %}
         <a href="{% url 'profiles:signup' %}">Зарегистрироваться</a>
         <a href="{% url 'profiles:login' %}">Войти</a>

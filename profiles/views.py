@@ -1,5 +1,8 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView,\
+    PasswordChangeDoneView, PasswordResetView, PasswordResetDoneView, \
+    PasswordResetConfirmView, PasswordResetCompleteView
+
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.views.generic.base import View
@@ -37,4 +40,3 @@ class SignUpView(View):
             login(request, user)
             return redirect('landing_page:landing')
         return render(request, 'registration/signup.html', {'form': form})
-

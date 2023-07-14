@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     # Мои приложения
     'landing_page',
     'profiles',
+    # Сторониие приложения
+    'captcha',
     # Предустановленные приложения
     'django.contrib.admin',
     'django.contrib.auth',
