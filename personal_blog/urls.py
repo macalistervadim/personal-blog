@@ -27,6 +27,8 @@ urlpatterns = [
     path('', include('landing_page.urls')),
     # Маршруты к приложению profiles
     path('profiles/', include('profiles.urls')),
+    # CAPTCHA
+    path('captcha/', include('captcha.urls')),
 ]
 
 if settings.DEBUG:
