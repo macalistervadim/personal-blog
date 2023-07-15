@@ -37,6 +37,8 @@ INSTALLED_APPS = [
     'profiles',
     # Сторонние приложения
     'captcha',
+    'django.contrib.postgres',
+    'django_bootstrap5',
     # Предустановленные приложения
     'django.contrib.admin',
     'django.contrib.auth',
@@ -82,8 +84,12 @@ WSGI_APPLICATION = 'personal_blog.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'personal blog',
+        'USER': 'postgres',
+        'PASSWORD': '123123',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 

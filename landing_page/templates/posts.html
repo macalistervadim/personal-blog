@@ -13,18 +13,24 @@
         <p>{{ post.date_created|date:"d.m.Y"  }}</p>
     {% endfor %}
 
-    <!-- Добавление пагинатора -->
-    <div class="pagination">
-        <span class="step-links">
+    <!-- Использование Bootstrap 5 пагинатора -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
             {% if page.has_previous %}
-                <a href="?page={{ page.previous_page_number }}">Назад</a>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page.previous_page_number }}">Назад</a>
+                </li>
             {% endif %}
 
-            <span class="current-page">{{ page.number }}</span>
+            <li class="page-item active" aria-current="page">
+                <span class="page-link">{{ page.number }}</span>
+            </li>
 
             {% if page.has_next %}
-                <a href="?page={{ page.next_page_number }}">Далее</a>
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ page.next_page_number }}">Далее</a>
+                </li>
             {% endif %}
-        </span>
-    </div>
+        </ul>
+    </nav>
 {% endblock content %}

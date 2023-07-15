@@ -1,8 +1,13 @@
 <!DOCTYPE html>
+
+{% load django_bootstrap5 %}
+
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock title %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
 </head>
 <body>
     {% block header %}

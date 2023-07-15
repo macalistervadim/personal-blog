@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block title %}
     Вход
@@ -11,9 +12,9 @@
     {% else %}
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% bootstrap_form form layout='horizontal' size='sm' %}
         <input type="hidden" name="next" value="{{ next }}">
-        <input type="submit" value="Войти">
+        {% bootstrap_button 'Войти' size='sm' %}
     </form>
     {% endif %}
 {% endblock content %}
