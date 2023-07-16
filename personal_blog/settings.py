@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'captcha',
     'django.contrib.postgres',
     'django_bootstrap5',
+    'social_django',
     # Предустановленные приложения
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +47,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Ядро библиотеки django-cleanup
+    'django_cleanup',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +74,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
         },
     },
@@ -142,3 +147,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'images')
 MEDIA_URL = '/images/'
 
 LOGIN_URL = 'profiles:login'
+
+LOGIN_REDIRECT_URL = 'landing_page:landing'
+
+SOCIAL_AUTH_JSONFIELD_ENABLED = True
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.vk.VKOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_VK_OAUTH2_KEY = '51705178'
+SOCIAL_AUTH_VK_OAUTH2_SECRET = 'eRS9PSE4qxVA8Qyk111g'

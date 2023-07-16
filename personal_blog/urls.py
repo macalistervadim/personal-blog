@@ -29,6 +29,8 @@ urlpatterns = [
     path('profiles/', include('profiles.urls')),
     # CAPTCHA
     path('captcha/', include('captcha.urls')),
+    # Авторизация через django_social
+    path('social/', include('social_django.urls', namespace='social')),
 ]
 
 if settings.DEBUG:

@@ -8,26 +8,70 @@
     <title>{% block title %}{% endblock title %}</title>
     {% bootstrap_css %}
     {% bootstrap_javascript %}
+    <style>
+        .header-links {
+            text-align: center;
+            background-color: #f8f9fa;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .header-links a {
+            color: #333;
+            margin-right: 10px;
+            text-decoration: none;
+            border: 1px solid transparent;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .header-links a:hover {
+            text-decoration: underline;
+            background-color: #eee;
+        }
+
+        .header-right-links {
+            float: right;
+        }
+
+        .header-right-links .btn {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .header-right-links .btn:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     {% block header %}
-    {% if user.is_authenticated %}
-        {% if user.is_superuser %}
-        <a href="{% url 'admin:index' %}">Панель администратора</a>
-        <a href="{% url 'landing_page:add_post' %}">Добавление записи</a>
-        {% endif %}
+    <div class="header-links">
+        <div class="header-right-links">
+            {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <a href="{% url 'admin:index' %}" class="btn btn-primary">Панель администратора</a>
+                    <a href="{% url 'landing_page:add_post' %}" class="btn btn-primary">Добавление записи</a>
+                {% endif %}
+                <form action="{% url 'profiles:logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="submit" value="Выйти" class="btn btn-primary">
+                </form>
+                <a href="{% url 'profiles:change_password' %}" class="btn btn-primary">Сменить пароль</a>
+            {% else %}
+                <a href="{% url 'profiles:signup' %}" class="btn btn-primary">Зарегистрироваться</a>
+                <a href="{% url 'profiles:login' %}" class="btn btn-primary">Войти</a>
+            {% endif %}
+        </div>
+        <div class="clearfix"></div>
         <a href="{% url 'landing_page:post_list' %}">Все записи</a>
         <a href="{% url 'landing_page:landing' %}">Главная</a>
-        <form action="{% url 'profiles:logout' %}" method="post">
-            {% csrf_token %}
-            <input type="submit" value="Выйти">
-        </form>
-        <a href="{% url 'profiles:change_password' %}">Сменить пароль</a>
-    {% else %}
-        <a href="{% url 'profiles:signup' %}">Зарегистрироваться</a>
-        <a href="{% url 'profiles:login' %}">Войти</a>
-        <a href="{% url 'landing_page:landing' %}">Главная</a>
-    {% endif %}
+    </div>
     {% endblock header %}
     {% block content %}
     {% endblock content %}

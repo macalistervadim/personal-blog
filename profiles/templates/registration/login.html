@@ -6,15 +6,34 @@
 {% endblock title %}
 
 {% block content %}
-    <h2>Вход</h2>
-    {% if user.is_authenticated %}
-    <p>Вы уже выполнили вход</p>
-    {% else %}
-    <form method="post">
-        {% csrf_token %}
-        {% bootstrap_form form layout='horizontal' size='sm' %}
-        <input type="hidden" name="next" value="{{ next }}">
-        {% bootstrap_button 'Войти' size='sm' %}
-    </form>
-    {% endif %}
+<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+    <div class="card w-25">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Вход</h2>
+            {% if user.is_authenticated %}
+                <p>Вы уже выполнили вход</p>
+            {% else %}
+                <div class="text-center mb-3">
+                    <a href="{% url 'social:begin' 'vk-oauth2' %}" class="btn btn-primary" style="background-color: #4267B2;">Вход по ВКонтакте</a>
+                </div>
+                <hr class="mb-3">
+                <form method="post" class="text-center">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="id_username" class="form-label">Имя пользователя</label>
+                        <input type="text" name="username" class="form-control form-control-sm" id="id_username">
+                    </div>
+                    <div class="form-group">
+                        <label for="id_password" class="form-label">Пароль</label>
+                        <input type="password" name="password" class="form-control form-control-sm" id="id_password">
+                    </div>
+                    <input type="hidden" name="next" value="{{ next }}">
+                    <div class="text-center mt-3">
+                        {% bootstrap_button 'Войти' size='sm' button_type='submit' %}
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock content %}
