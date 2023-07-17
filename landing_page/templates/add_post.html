@@ -6,10 +6,20 @@
 {% endblock title %}
 
 {% block content %}
-    <h2>Добавление новой записи</h2>
-    <form action="{% url 'landing_page:add_post' %}" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {% bootstrap_form form layout='horizontal' size='sm' %}
-        {% bootstrap_button 'Сохранить' size='sm' %}
-    </form>
+    <div class="container">
+        <h2 class="mt-4 mb-3">Добавление новой записи</h2>
+        <form action="{% url 'landing_page:add_post' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+                {% bootstrap_field form.title label_class='col-form-label-sm' input_class='form-control-sm' %}
+            </div>
+            <div class="mb-3">
+                {% bootstrap_field form.description label_class='col-form-label-sm' input_class='form-control-sm' %}
+            </div>
+            <div class="mb-3">
+                {% bootstrap_field form.image label_class='col-form-label-sm' input_class='form-control-sm' %}
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Сохранить</button>
+        </form>
+    </div>
 {% endblock content %}

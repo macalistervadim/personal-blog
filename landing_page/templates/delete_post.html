@@ -1,15 +1,22 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block title %}
     Удаление записи
 {% endblock title %}
 
 {% block content %}
-    <h2>Вы уверены, что хотите удалить запись "{{ post.title }}"?</h2>
-    <p>Для подтверждения нажмите на кнопку ниже</p>
-    <form action="{% url 'landing_page:delete_post_confirm' post.id %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="Удалить">
-    </form>
-    <a href="{% url 'landing_page:post_detail' post.id %}">Отмена</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="mt-4">Вы уверены, что хотите удалить запись "{{ post.title }}"?</h2>
+                <p>Для подтверждения нажмите на кнопку ниже</p>
+                <form action="{% url 'landing_page:delete_post_confirm' post.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+                <a href="{% url 'landing_page:post_detail' post.id %}" class="btn btn-secondary">Отмена</a>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

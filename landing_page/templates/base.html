@@ -9,29 +9,34 @@
     {% bootstrap_css %}
     {% bootstrap_javascript %}
     <style>
-        .header-links {
-            text-align: center;
+        .header {
             background-color: #f8f9fa;
             padding: 10px;
             margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        .header-links {
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 30px;
         }
 
         .header-links a {
-            color: #333;
-            margin-right: 10px;
-            text-decoration: none;
-            border: 1px solid transparent;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-
-        .header-links a:hover {
-            text-decoration: underline;
-            background-color: #eee;
+            margin-right: 15px;
         }
 
         .header-right-links {
-            float: right;
+            margin-left: auto;
+            display: flex;
+            align-items: center;
         }
 
         .header-right-links .btn {
@@ -41,37 +46,91 @@
             padding: 5px 10px;
             border-radius: 5px;
             margin-right: 10px;
+            font-size: 14px;
         }
 
         .header-right-links .btn:hover {
             background-color: #0056b3;
             border-color: #0056b3;
         }
+
+        .header-right-links .change-password-btn {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .header-right-links .change-password-btn:hover {
+            background-color: #1e7e34;
+            border-color: #1e7e34;
+        }
+
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+        }
+
+        .navbar-toggler[aria-expanded="false"] .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3e%3cpath stroke='rgba(0, 0, 0, 0.5)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M0 6h30M0 15h30M0 24h30'/%3e%3c/svg%3e");
+        }
+
+        @media (max-width: 767px) {
+            .header-right-links {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
     {% block header %}
-    <div class="header-links">
-        <div class="header-right-links">
-            {% if user.is_authenticated %}
-                {% if user.is_superuser %}
-                    <a href="{% url 'admin:index' %}" class="btn btn-primary">Панель администратора</a>
-                    <a href="{% url 'landing_page:add_post' %}" class="btn btn-primary">Добавление записи</a>
-                {% endif %}
-                <form action="{% url 'profiles:logout' %}" method="post" style="display: inline;">
-                    {% csrf_token %}
-                    <input type="submit" value="Выйти" class="btn btn-primary">
-                </form>
-                <a href="{% url 'profiles:change_password' %}" class="btn btn-primary">Сменить пароль</a>
-            {% else %}
-                <a href="{% url 'profiles:signup' %}" class="btn btn-primary">Зарегистрироваться</a>
-                <a href="{% url 'profiles:login' %}" class="btn btn-primary">Войти</a>
-            {% endif %}
+    <header class="header">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand logo" href="{% url 'landing_page:landing' %}">My Blog</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        {% if user.is_authenticated %}
+                            {% if user.is_superuser %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'admin:index' %}">Панель администратора</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'landing_page:add_post' %}">Добавление записи</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'landing_page:post_list' %}">Все записи</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'landing_page:landing' %}">Главная</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <form action="{% url 'profiles:logout' %}" method="post" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary btn-sm">Выйти</button>
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <a class="btn btn-primary btn-sm change-password-btn" href="{% url 'profiles:change_password' %}">Сменить пароль</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a href="{% url 'profiles:signup' %}" class="btn btn-primary btn-sm">Зарегистрироваться</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'profiles:login' %}" class="btn btn-primary btn-sm">Войти</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
         </div>
-        <div class="clearfix"></div>
-        <a href="{% url 'landing_page:post_list' %}">Все записи</a>
-        <a href="{% url 'landing_page:landing' %}">Главная</a>
-    </div>
+    </header>
     {% endblock header %}
     {% block content %}
     {% endblock content %}

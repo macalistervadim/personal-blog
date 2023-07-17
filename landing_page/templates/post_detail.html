@@ -5,36 +5,52 @@
 {% endblock title %}
 
 {% block content %}
-    <h2>{{ post.title }}</h2>
-    {% if post.image %}
-        <img src="{{ post.image.url }}" alt="error load photo" width="20%"/>
-    {% endif %}
-    <p>{{ post.description }}</p>
-    <h5>Написана: {{ post.date_created|date:"d.m.Y" }}</h5>
-    <br>
-    <div>
-    <h4>Комментарии</h4>
-    <form action="{% url 'landing_page:add_comment' post.id %}" method="post">
-        {% csrf_token %}
-        <p><label>Ваше имя</label></p>
-        <input type="text" name="name">
-         <p><label>Ваш E-Mail</label></p>
-        <input type="email" name="email">
-         <p><label>Комментарий</label></p>
-        <textarea name="text"></textarea>
-        <p><input type="submit"></p>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h2>{{ post.title }}</h2>
+                {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="error load photo" class="img-fluid" />
+                {% endif %}
+                <p>{{ post.description }}</p>
+                <h5>Написана: {{ post.date_created|date:"d.m.Y" }}</h5>
+
+                <div class="mt-4">
+                    <h4>Комментарии</h4>
+                    <form action="{% url 'landing_page:add_comment' post.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="name">Ваше имя</label>
+                            <input type="text" name="name" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Ваш E-Mail</label>
+                            <input type="email" name="email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="text">Комментарий</label>
+                            <textarea name="text" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Добавить комментарий</button>
+                    </form>
+                </div>
+
+                <div class="mt-4">
+                    {% for comment in comments %}
+                        <h4>{{ comment.name }}</h4>
+                        <p>{{ comment.text }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                {% if user.is_superuser %}
+                    <!-- Кнопка "Редактировать" -->
+                    <a href="{% url 'landing_page:edit_post' post.id %}" class="btn btn-primary">Редактировать</a>
+                    <!--Кнопка "Удалить" -->
+                    <a href="{% url 'landing_page:delete_post' post.id %}" class="btn btn-danger">Удалить</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
-    <div>
-    {% for comment in comments %}
-        <h4>{{ comment.name }}</h4>
-        <p>{{ comment.text }}</p>
-    {% endfor %}
-    </div>
-    {% if user.is_superuser %}
-    <!-- Кнопка "Редактировать" -->
-    <a href="{% url 'landing_page:edit_post' post.id %}">Редактировать</a>
-    <!--Кнопка удалить -->
-    <a href="{% url 'landing_page:delete_post' post.id %}">Удалить</a>
-    {% endif %}
 {% endblock content %}

@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
+{% load django_bootstrap5 %}
 
 {% block title %}
     Редактирование записи
 {% endblock title %}
 
 {% block content %}
-    <h2>Редактирование записи</h2>
-    <form action="{% url 'landing_page:edit_post' post.id %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <p><input type="submit" value="Сохранить"></p>
-    </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h2 class="mt-4">Редактирование записи</h2>
+                <form action="{% url 'landing_page:edit_post' post.id %}" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock content %}

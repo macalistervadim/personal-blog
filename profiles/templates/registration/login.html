@@ -16,6 +16,12 @@
                 <div class="text-center mb-3">
                     <a href="{% url 'social:begin' 'vk-oauth2' %}" class="btn btn-primary" style="background-color: #4267B2;">Вход по ВКонтакте</a>
                 </div>
+                <div class="text-center mb-3">
+                    <a href="{% url 'social:begin' 'github' %}" class="btn btn-primary" style="background-color: #696969;"> Войти через GitHub</a>
+                </div>
+            <div class="text-center mb-3">
+                    <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary" style="background-color: #FF6347;"> Войти через Google</a>
+                </div>
                 <hr class="mb-3">
                 <form method="post" class="text-center">
                     {% csrf_token %}

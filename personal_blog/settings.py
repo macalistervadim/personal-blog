@@ -148,14 +148,23 @@ MEDIA_URL = '/images/'
 
 LOGIN_URL = 'profiles:login'
 
-LOGIN_REDIRECT_URL = 'landing_page:landing'
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'
 
 SOCIAL_AUTH_JSONFIELD_ENABLED = True
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.vk.VKOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
 )
 
 SOCIAL_AUTH_VK_OAUTH2_KEY = '51705178'
 SOCIAL_AUTH_VK_OAUTH2_SECRET = 'eRS9PSE4qxVA8Qyk111g'
+
+SOCIAL_AUTH_GITHUB_KEY = '3f6db5217c33a23f3b53'
+SOCIAL_AUTH_GITHUB_SECRET = '6024542e6944dda967193f41d773955f367bc36d'
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '348967216023-iouup3dckevh9t3glmbs7k55jf8vsh7h.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://127.0.0.1:8000/social/complete/google-oauth2/'
