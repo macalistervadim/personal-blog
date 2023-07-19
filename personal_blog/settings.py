@@ -168,11 +168,3 @@ SOCIAL_AUTH_GITHUB_SECRET = '6024542e6944dda967193f41d773955f367bc36d'
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '348967216023-iouup3dckevh9t3glmbs7k55jf8vsh7h.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://127.0.0.1:8000/social/complete/google-oauth2/'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'startsevvadim2007@gmail.com'
-EMAIL_HOST_PASSWORD = 'VLADblat628704'
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
