@@ -14,7 +14,17 @@
                 {% endif %}
                 <p>{{ post.description }}</p>
                 <h5>Написана: {{ post.date_created|date:"d.m.Y" }}</h5>
-
+                {% if messages %}
+                        <div class="alert alert-success">
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                {% endif %}
                 <div class="mt-4">
                     <h4>Комментарии</h4>
                     <form action="{% url 'landing_page:add_comment' post.id %}" method="post">
@@ -42,7 +52,6 @@
                     {% endfor %}
                 </div>
             </div>
-
             <div class="col-md-4">
                 {% if user.is_superuser %}
                     <!-- Кнопка "Редактировать" -->

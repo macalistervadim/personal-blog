@@ -1,10 +1,10 @@
 from datetime import datetime
-
 from django.db import models
+from django.contrib.messages.views import SuccessMessageMixin
 
 def default_datetime(): return datetime.now()
 
-class AddNewPost(models.Model):
+class AddNewPost(models.Model, SuccessMessageMixin):
     """Добавление новой публикации"""
     title = models.CharField('Название записи', max_length=200)
     description = models.TextField('Описание записи')

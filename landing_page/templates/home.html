@@ -7,6 +7,17 @@
 
 {% block content %}
     <div class="container">
+        {% if messages %}
+                        <div class="alert alert-success">
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                                        {{ message }}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+        {% endif %}
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 <h2 class="text-center mt-4">Привет! Меня зовут Вадим, и я начинающий Python разработчик</h2>

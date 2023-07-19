@@ -3,8 +3,10 @@ from django.contrib.auth.views import LoginView, LogoutView, PasswordChangeView,
 from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.views.generic.base import View
+from django.core.mail import send_mail
 
 from .forms import SignUpForm
+from personal_blog import settings
 
 class CustomLoginView(LoginView):
     """Шаблон представления формы входа на сайт"""
@@ -34,7 +36,15 @@ class SignUpView(View):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)
+            login(request, user, backend=settings.EMAIL_BACKEND[0])
+
+            # Отправка приветственного письма
+            subject = 'Добро пожаловать на наш сайт'
+            message = 'Добро пожаловать! Спасибо за регистрацию на нашем сайте.'
+            from_email = 'noreply@example.com'
+            to_email = user.email
+            send_mail(subject, message, from_email, [to_email])
+
             return redirect('landing_page:landing')
         return render(request, 'registration/signup.html', {'form': form})
 

@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.urls import reverse
+from django.contrib import messages
 
 
 from .models import AddNewPost, AddComment
@@ -12,6 +13,7 @@ from .forms import CommentForm, AddPost
 class HomePage(View):
     """Домашняя страница"""
     def get(self, request):
+        messages.add_message(request, messages.INFO, 'Данный сайт находится на стадии разработки')
         return render(request, 'home.html')
 
 class PostView(View):
@@ -41,6 +43,7 @@ class AddNewComment(View):
             form = form.save(commit=False)
             form.post_id = pk
             form.save()
+            messages.add_message(request, messages.SUCCESS, 'Вы успешно оставили комментарий')
         return redirect(reverse('landing_page:post_detail', args=[pk]))
 
 
