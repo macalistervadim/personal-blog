@@ -22,4 +22,6 @@ urlpatterns = [
     path('topics/<int:pk>/delete/', views.DeletePost.as_view(), name='delete_post'),
     # Подтверждение удаления
     path('topics/<int:pk>/delete/confirm/', views.DeletePostConfirm.as_view(), name='delete_post_confirm'),
+    # Вывод записей через api
+    path('api/posts/', views.api_post),
 ]

@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'django_bootstrap5',
     'social_django',
+    'rest_framework',
+    'corsheaders',
     # Предустановленные приложения
     'django.contrib.admin',
     'django.contrib.auth',
@@ -54,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

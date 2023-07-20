@@ -5,10 +5,11 @@ from django.shortcuts import render, redirect
 from django.views.generic.base import View
 from django.urls import reverse
 from django.contrib import messages
-
+from django.http import JsonResponse
 
 from .models import AddNewPost, AddComment
 from .forms import CommentForm, AddPost
+from .serializers import ViewsPostApi
 
 class HomePage(View):
     """Домашняя страница"""
@@ -100,3 +101,9 @@ class DeletePostConfirm(View):
         post.delete()
         return redirect('landing_page:post_list')
 
+def api_post(request):
+    """Вывод списка рубрик"""
+    if request.method == 'GET':
+        posts = AddNewPost.objects.all()
+        serializer = ViewsPostApi(posts, many=True)
+        return JsonResponse(serializer.data, safe=False)
