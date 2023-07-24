@@ -1,4 +1,4 @@
-## My Blog
+## Personal Blog
 My Blog is a web service designed for managing a personal blog by publishing various posts on the website. It features a comprehensive set of functionalities:
 ### Features
 * Comment System: Users can leave comments on blog posts.
