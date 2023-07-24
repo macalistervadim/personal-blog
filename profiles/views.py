@@ -48,3 +48,6 @@ class SignUpView(View):
             return redirect('landing_page:landing')
         return render(request, 'registration/signup.html', {'form': form})
 
+def my_custom_page_not_found_view(request, exception):
+    return render(request, '404.html', status=404)
+

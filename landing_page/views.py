@@ -107,3 +107,7 @@ def api_post(request):
         posts = AddNewPost.objects.all()
         serializer = ViewsPostApi(posts, many=True)
         return JsonResponse(serializer.data, safe=False)
+
+def my_custom_page_not_found_view(request, exception):
+    return render(request, '404.html', status=404)
+

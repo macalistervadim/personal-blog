@@ -172,3 +172,5 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '348967216023-iouup3dckevh9t3glmbs7k55jf8vsh7h.a
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
 SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://127.0.0.1:8000/social/complete/google-oauth2/'
 
+# Обработчик 404 ошибки
+handler404 = 'landing_page.views.my_custom_page_not_found_view'
